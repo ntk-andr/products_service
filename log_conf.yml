@@ -1,0 +1,32 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  default:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  access:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+
+handlers:
+
+  access:
+      class: logging.FileHandler
+      formatter: access
+      filename: ./logs/access.log
+  default:
+      class: logging.FileHandler
+      formatter: default
+      filename: ./logs/error.log
+
+
+loggers:
+  uvicorn:
+    error:
+      propagate: true
+    handlers: [access]
+
+root:
+  level: INFO
+  handlers: [default]
+  propagate: no
